@@ -1,0 +1,15 @@
+AllCops:
+  TargetRubyVersion: 2.4
+  Exclude:
+    - 'vendor/bundle/**/*'
+Layout/LineLength:
+  Max: 120
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*.rb"
