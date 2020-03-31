@@ -3,6 +3,11 @@
 * Drop support for ActiveRecord 5 and older
 * Have tests that work
 
+TODO
+* Fix connections clearing after each request? How is Rails doing this?
+* Fix database configuration options
+* Use Sinatra logger if available
+
 # Sinatra ActiveRecord Extension
 
 [![CircleCI](https://circleci.com/gh/nTraum/sinatra-activerecord.svg?style=shield)](https://app.circleci.com/pipelines/github/nTraum/sinatra-activerecord) [![codecov](https://codecov.io/gh/nTraum/sinatra-activerecord/branch/master/graph/badge.svg)](https://codecov.io/gh/nTraum/sinatra-activerecord)
