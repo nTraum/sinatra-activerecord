@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rake'
+
 load 'active_record/railties/databases.rake'
 require "sinatra/activerecord/rake/activerecord_#{ActiveRecord::VERSION::MAJOR}"
 

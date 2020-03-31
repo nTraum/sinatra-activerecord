@@ -12,7 +12,6 @@ RSpec.describe 'the rake tasks' do
     FileUtils.mkdir_p 'db'
     FileUtils.touch 'db/seeds.rb'
 
-    require 'rake'
     require 'sinatra/activerecord/rake'
   end
 
