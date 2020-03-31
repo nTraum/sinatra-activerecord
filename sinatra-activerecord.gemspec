@@ -19,11 +19,7 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 2.4.0"
 
+  gem.add_dependency "activerecord", ">= 6.0"
+  gem.add_dependency "rake"
   gem.add_dependency "sinatra", ">= 1.0"
-  gem.add_dependency "activerecord", ">= 5.0"
-
-  gem.add_development_dependency "rake"
-  gem.add_development_dependency "rspec", "~> 3.1"
-  gem.add_development_dependency "sqlite3"
-  gem.add_development_dependency "appraisal"
 end
