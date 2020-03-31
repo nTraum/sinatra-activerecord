@@ -1,7 +1,7 @@
 pkg/
 .rspec
 wiki/
-*emfile.lock
+Gemfile.lock
 .DS_Store
 tmp/
 .bundle
