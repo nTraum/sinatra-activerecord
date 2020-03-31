@@ -1,3 +1,8 @@
+# Changes
+* Drop support for Ruby 2.3 and older
+* Drop support for ActiveRecord 5 and older
+* Have tests that work
+
 # Sinatra ActiveRecord Extension
 
 Extends [Sinatra](http://www.sinatrarb.com/) with extension methods and Rake
