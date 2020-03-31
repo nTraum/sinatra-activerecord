@@ -1,15 +1,6 @@
 require 'spec_helper'
 require 'fileutils'
 
-class ActiveRecord::Migration
-  def migrate_with_quietness(*args)
-    suppress_messages do
-      migrate_without_quietness(*args)
-    end
-  end
-  alias_method_chain :migrate, :quietness
-end
-
 RSpec.describe "the rake tasks" do
   before do
     Class.new(Sinatra::Base) do
@@ -22,30 +13,24 @@ RSpec.describe "the rake tasks" do
 
     require 'rake'
     require 'sinatra/activerecord/rake'
-
-    class Rake::Task
-      def invoke_with_reenable
-        invoke_without_reenable
-        reenable
-      end
-      alias_method_chain :invoke, :reenable
-    end
   end
 
   after do
     FileUtils.rm_rf "db"
   end
 
-  it "has all the rake tasks working" do
-    ENV["NAME"] = "create_users"
+  ["db:create", "db:create_migration", "db:migrate", "db:migrate:redo", "db:reset", "db:seed"]. each do |task_name|
+    describe task_name do
+      subject { Rake::Task[task_name] }
+      after { subject.reenable }
 
-    Rake::Task["db:create"].invoke
-    Rake::Task["db:create_migration"].invoke
-    Rake::Task["db:migrate"].invoke
-    Rake::Task["db:migrate:redo"].invoke
-    Rake::Task["db:reset"].invoke
-    Rake::Task["db:seed"].invoke
+      it 'executes successfully' do
+        ENV["NAME"] = "create_users"
 
-    ENV.delete("NAME")
+        subject.invoke
+
+        ENV.delete("NAME")
+      end
+    end
   end
 end
