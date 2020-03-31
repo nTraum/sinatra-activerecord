@@ -28,8 +28,6 @@ module Sinatra
 
       app.helpers ActiveRecordHelper
 
-      # re-connect if database connection dropped (Rails 3 only)
-      app.before { ActiveRecord::Base.verify_active_connections! if ActiveRecord::Base.respond_to?(:verify_active_connections!) }
       app.after { ActiveRecord::Base.clear_active_connections! }
     end
 
