@@ -28,6 +28,9 @@ module Sinatra
 
       app.helpers ActiveRecordHelper
 
+      # TODO This does not seem to be the right place
+      # https://github.com/rails/rails/blob/fc4ef77d47c0aff1f3477f42261c1b11e2afecfc/activerecord/lib/active_record/railtie.rb#L255
+      # Rails clears connections once after the application booted up, not after every request.
       app.after { ActiveRecord::Base.clear_active_connections! }
     end
 
