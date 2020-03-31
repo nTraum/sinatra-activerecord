@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'codecov', '~> 0.1.16', require: false
 gem 'pry'
 gem 'pry-byebug'
 gem 'rake'

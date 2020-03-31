@@ -3,6 +3,15 @@
 require 'simplecov'
 SimpleCov.start
 
+if ENV['CODECOV_ENABLED'] == 'true'
+  require 'codecov'
+
+  SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new([
+                                                                    SimpleCov::Formatter::HTMLFormatter,
+                                                                    SimpleCov::Formatter::Codecov
+                                                                  ])
+end
+
 require 'bundler/setup'
 require 'sinatra/activerecord'
 
