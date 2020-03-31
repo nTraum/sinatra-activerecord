@@ -5,6 +5,8 @@
 
 # Sinatra ActiveRecord Extension
 
+[![CircleCI](https://circleci.com/gh/nTraum/sinatra-activerecord.svg?style=shield)](https://app.circleci.com/pipelines/github/nTraum/sinatra-activerecord) [![codecov](https://codecov.io/gh/nTraum/sinatra-activerecord/branch/master/graph/badge.svg)](https://codecov.io/gh/nTraum/sinatra-activerecord)
+
 Extends [Sinatra](http://www.sinatrarb.com/) with extension methods and Rake
 tasks for dealing with an SQL database using the
 [ActiveRecord ORM](https://github.com/rails/rails/tree/master/activerecord).
