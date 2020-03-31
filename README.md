@@ -7,6 +7,7 @@ TODO
 * Fix connections clearing after each request? How is Rails doing this?
 * Fix database configuration options
 * Use Sinatra logger if available
+* Fix ActiveRecord deprectation warnings
 
 # Sinatra ActiveRecord Extension
 
