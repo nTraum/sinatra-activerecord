@@ -19,7 +19,7 @@ RSpec.describe "the rake tasks" do
     FileUtils.rm_rf "db"
   end
 
-  ["db:create", "db:create_migration", "db:migrate", "db:migrate:redo", "db:reset", "db:seed"]. each do |task_name|
+  ["db:create", "db:create_migration", "db:migrate", "db:migrate:redo", "db:migrate:reset", "db:seed"]. each do |task_name|
     describe task_name do
       subject { Rake::Task[task_name] }
       after { subject.reenable }
