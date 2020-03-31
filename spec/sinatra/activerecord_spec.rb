@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'sinatra/base'
 require 'fileutils'
 
 RSpec.describe 'the sinatra extension' do
