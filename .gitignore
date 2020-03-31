@@ -2,6 +2,7 @@
 .bundle
 .rspec
 Gemfile.lock
+coverage/
 pkg/
 spec/examples.txt
 tmp/

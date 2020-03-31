@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem "simplecov", "~> 0.18.5", require: false
 gem 'pry'
 gem 'pry-byebug'
 gem 'rake'

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'simplecov'
+SimpleCov.start
+
 require 'bundler/setup'
 require 'sinatra/activerecord'
 
@@ -12,21 +15,13 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  config.shared_context_metadata_behavior = :apply_to_host_groups
-
-  config.filter_run_when_matching :focus
-
-  config.example_status_persistence_file_path = 'spec/examples.txt'
-
-  config.disable_monkey_patching!
-
-  config.warnings = true
-
   config.default_formatter = 'doc' if config.files_to_run.one?
-
-  config.profile_examples = 10
-
+  config.disable_monkey_patching!
+  config.example_status_persistence_file_path = 'spec/examples.txt'
+  config.filter_run_when_matching :focus
   config.order = :random
-
+  config.profile_examples = 10
+  config.shared_context_metadata_behavior = :apply_to_host_groups
+  config.warnings = true
   Kernel.srand config.seed
 end
