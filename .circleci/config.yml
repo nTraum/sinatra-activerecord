@@ -1,0 +1,47 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.6.5-stretch
+        environment:
+          BUNDLE_PATH: vendor/bundle
+          CODECOV_ENABLED: true
+          RACK_ENV: test
+          APP_ENV: test
+    steps:
+      - checkout
+
+      - run:
+          name: Install latest bundler
+          command: gem install bundler
+
+      - run:
+          name: Bundler version
+          command: bundle -v
+
+      - run:
+          name: Install SQLite 3
+          command: sudo apt update && sudo apt install -y sqlite3
+
+      # Restore bundle cache
+      - restore_cache:
+          keys:
+            - gems-{{ checksum "Gemfile.lock" }}
+            - gems-
+
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+
+      # Store bundle cache
+      - save_cache:
+          key: gems-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Run RSpec
+          command: bundle exec rspec
+      - run:
+          name: Run Rubocop
+          command: bundle exec rubocop
