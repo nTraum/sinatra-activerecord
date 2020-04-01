@@ -4,7 +4,7 @@ PATH
     sinatra-activerecord (2.0.13)
       activerecord (>= 6.0)
       rake
-      sinatra (>= 1.0)
+      sinatra (>= 2.0)
 
 GEM
   remote: https://rubygems.org/

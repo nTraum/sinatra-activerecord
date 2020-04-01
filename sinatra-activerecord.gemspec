@@ -21,5 +21,5 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'activerecord', '>= 6.0'
   gem.add_dependency 'rake'
-  gem.add_dependency 'sinatra', '>= 1.0'
+  gem.add_dependency 'sinatra', '>= 2.0'
 end
