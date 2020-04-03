@@ -3,27 +3,13 @@
 require 'fileutils'
 
 RSpec.describe 'the sinatra extension' do
-  let(:database_url) do
-    if ActiveRecord::VERSION::STRING.starts_with? '4.1'
-      'sqlite3:tmp/foo.sqlite3'
-    else
-      'sqlite3:///tmp/foo.sqlite3'
-    end
-  end
+  let(:database_url) { 'sqlite3:///tmp/foo.sqlite3' }
+
   let(:app) do
     Class.new(Sinatra::Base) do
       set :root, nil
       register Sinatra::ActiveRecordExtension
     end
-  end
-
-  before do
-    hide_const('Rake')
-    ActiveRecord::Base.remove_connection
-  end
-
-  after do
-    ActiveRecord::Base.logger = nil
   end
 
   it 'exposes ActiveRecord::Base' do

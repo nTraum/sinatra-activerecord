@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require 'sinatra/base'
 require 'active_record'
+
+require 'sinatra/base'
 require 'active_support/core_ext/hash/keys'
 
 require 'logger'
