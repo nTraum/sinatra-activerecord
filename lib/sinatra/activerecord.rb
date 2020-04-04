@@ -25,15 +25,8 @@ module Sinatra
         app.set :database_file, "#{Dir.pwd}/config/database.yml"
       end
 
-      unless defined?(Rake) || %i[test production].include?(app.settings.environment)
-        ActiveRecord::Base.logger = Logger.new(STDOUT)
-      end
-
       app.helpers ActiveRecordHelper
 
-      # TODO: This does not seem to be the right place
-      # https://github.com/rails/rails/blob/fc4ef77d47c0aff1f3477f42261c1b11e2afecfc/activerecord/lib/active_record/railtie.rb#L255
-      # Rails clears connections once after the application booted up, not after every request.
       app.after { ActiveRecord::Base.clear_active_connections! }
     end
 
@@ -48,8 +41,8 @@ module Sinatra
         ActiveRecord::Base.configurations = spec.stringify_keys
         ActiveRecord::Base.establish_connection(environment.to_sym)
       elsif spec.is_a?(Hash)
-        ActiveRecord::Base.configurations[environment.to_s] = spec.stringify_keys
-        ActiveRecord::Base.establish_connection(spec.stringify_keys)
+        ::ActiveRecord::Base.configurations[environment.to_s] = spec.stringify_keys
+        ::ActiveRecord::Base.establish_connection(spec.stringify_keys)
       else
         ActiveRecord::Base.establish_connection(spec)
         ActiveRecord::Base.configurations ||= {}

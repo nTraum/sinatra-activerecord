@@ -20,6 +20,7 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = '>= 2.4.0'
 
   gem.add_dependency 'activerecord', '>= 6.0'
+  gem.add_dependency 'dry-monads', '>= 1.3.2'
   gem.add_dependency 'rake'
   gem.add_dependency 'sinatra', '>= 2.0'
 end

@@ -12,3 +12,4 @@ gem 'rspec', '~> 3.1'
 gem 'rubocop', '~> 0.80.1'
 gem 'simplecov', '~> 0.18.5', require: false
 gem 'sqlite3'
+gem 'timecop', '~> 0.9.1'

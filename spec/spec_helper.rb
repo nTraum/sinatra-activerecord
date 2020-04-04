@@ -15,6 +15,10 @@ end
 require 'bundler/setup'
 require 'sinatra/activerecord'
 
+require 'timecop'
+
+require_relative 'matchers/run_process_matcher'
+
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
@@ -33,4 +37,6 @@ RSpec.configure do |config|
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.warnings = true
   Kernel.srand config.seed
+
+  config.before(:suite) { Timecop.safe_mode = true }
 end
