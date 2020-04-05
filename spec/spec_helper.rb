@@ -18,6 +18,7 @@ require 'sinatra/activerecord'
 require 'timecop'
 
 require_relative 'matchers/run_process_matcher'
+require_relative 'helpers/isolated_app_dir_helper'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -37,6 +38,8 @@ RSpec.configure do |config|
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.warnings = true
   Kernel.srand config.seed
+
+  config.include(IsolatedAppDirHelper)
 
   config.before(:suite) { Timecop.safe_mode = true }
 end

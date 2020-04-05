@@ -21,10 +21,12 @@ module Sinatra
           ActiveRecord::Migrator.migrations_paths.each do |directory|
             next unless File.exist?(directory)
 
+            require 'pry'; binding.pry
             migration_files = Pathname(directory).children
             if duplicate = migration_files.find { |path| path.basename.to_s.include?(name) }
               puts "Another migration is already named \"#{name}\": #{duplicate}."
-              return
+
+              fail
             end
           end
 
