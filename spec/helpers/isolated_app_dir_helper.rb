@@ -5,6 +5,7 @@ module IsolatedAppDirHelper
     # frozen_string_literal: true
 
     require 'sinatra/activerecord/rake'
+
     namespace :db do
       task :load_config do
         require_relative 'app.rb'
@@ -15,11 +16,12 @@ module IsolatedAppDirHelper
   APPFILE_CONTENT = <<~APPFILE.strip
     # frozen_string_literal: true
 
+    require 'bundler/setup'
     require 'sinatra'
     require 'sinatra/activerecord'
 
           register Sinatra::ActiveRecordExtension
-          set :database, { adapter: 'sqlite3', database: 'tmp/foo.sqlite3' }
+          set :database, { adapter: 'sqlite3', database: 'db/database.sqlite3' }
 
   APPFILE
 
