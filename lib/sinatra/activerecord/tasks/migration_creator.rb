@@ -11,7 +11,10 @@ module Sinatra
         def initialize
           name    = ENV['NAME']
           version = ENV['VERSION'] || Time.now.utc.strftime('%Y%m%d%H%M%S')
+
+          # TODO: Strip underscore if no version is given
           filename = "#{version}_#{name}.rb"
+          # TODO: Declare this active support requirement
           klass = (name || version).camelize
 
           ::ActiveRecord::Migrator.migrations_paths.each do |directory|
