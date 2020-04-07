@@ -37,6 +37,8 @@ module IsolatedAppDirHelper
 
   BUNDLER_ENV_VARS = %w[RUBYOPT BUNDLE_PATH BUNDLE_BIN_PATH BUNDLE_GEMFILE].freeze
 
+  APP_ENV_VARS = %w[RACK_ENV APP_ENV].freeze
+
   def within_isolated_app_dir
     with_clean_env do
       # env.each_pair do |key, value|
@@ -55,15 +57,15 @@ module IsolatedAppDirHelper
   end
 
   def with_clean_env
-    unset_bundler_env_vars
+    unset_env_vars
     yield
   ensure
     restore_env
   end
 
-  def unset_bundler_env_vars
+  def unset_env_vars
     @original_env = {}
-    BUNDLER_ENV_VARS.each do |key|
+    (BUNDLER_ENV_VARS + APP_ENV_VARS).each do |key|
       @original_env[key] = ENV[key]
       ENV[key] = nil
     end

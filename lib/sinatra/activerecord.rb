@@ -27,7 +27,7 @@ module Sinatra
 
       app.helpers ActiveRecordHelper
 
-      app.after { ActiveRecord::Base.clear_active_connections! }
+      app.after { ::ActiveRecord::Base.clear_active_connections! }
     end
 
     def database_file=(path)
@@ -38,21 +38,21 @@ module Sinatra
 
     def database=(spec)
       if spec.is_a?(Hash) && spec.symbolize_keys[environment.to_sym]
-        ActiveRecord::Base.configurations = spec.stringify_keys
-        ActiveRecord::Base.establish_connection(environment.to_sym)
+        ::ActiveRecord::Base.configurations = spec.stringify_keys
+        ::ActiveRecord::Base.establish_connection(environment.to_sym)
       elsif spec.is_a?(Hash)
-        ::ActiveRecord::Base.configurations[environment.to_s] = spec.stringify_keys
+        ::ActiveRecord::Base.configurations = { environment.to_sym => spec }
         ::ActiveRecord::Base.establish_connection(spec.stringify_keys)
       else
-        ActiveRecord::Base.establish_connection(spec)
-        ActiveRecord::Base.configurations ||= {}
-        ActiveRecord::Base.configurations[environment.to_s] =
-          ActiveRecord::ConnectionAdapters::ConnectionSpecification::ConnectionUrlResolver.new(spec).to_hash
+        ::ActiveRecord::Base.establish_connection(spec)
+        ::ActiveRecord::Base.configurations ||= {}
+        ::ActiveRecord::Base.configurations[environment.to_s] =
+          ::ActiveRecord::ConnectionAdapters::ConnectionSpecification::ConnectionUrlResolver.new(spec).to_hash
       end
     end
 
     def database
-      ActiveRecord::Base
+      ::ActiveRecord::Base
     end
   end
 
