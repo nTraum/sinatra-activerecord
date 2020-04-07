@@ -68,7 +68,6 @@ RSpec.describe 'the sinatra extension' do
   it 'allows specifying multiple databases' do
     app.root = 'spec/fixtures'
     app.database_file = 'database.yml'
-    app.database = database_url
 
     expect { ActiveRecord::Base.establish_connection(:test) }.not_to raise_error
     expect { ActiveRecord::Base.establish_connection(:another_test) }.not_to raise_error
