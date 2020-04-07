@@ -6,21 +6,29 @@ require 'rspec/expectations'
 RSpec::Matchers.define :run_process do
   match do |actual|
     stdout, stderr, status = Open3.capture3(*actual)
-    @result = [stdout, stderr, status.to_i]
-
-    puts stdout
-
-    expected = [stdout, stderr, 0]
+    @result = { stdout: stdout.strip, stderr: stderr.strip, status: status.to_i }
+    expected = { stdout: stdout.strip, stderr: stderr.strip, status: 0 }
 
     values_match? expected, @result
   end
 
   failure_message do |actual|
-    "expected that #{actual} would run and exit with 0, instead: #{@result}"
+    <<~MESSAGE.strip
+        expected that #{actual} would run and exit with 0, instead:
+        status: #{@result[:status]}
+        stdout: #{@result[:stdout]}
+        stderr: #{@result[:stderr]}
+    MESSAGE
+    MESSAGE
   end
 
   failure_message_when_negated do |actual|
-    "expected that #{actual} would fail and exit non-zero, instead: #{@result}"
+    <<~MESSAGE.strip
+        expected that #{actual} would run and exit non-zero, instead:
+        status: #{@result[:status]}
+        stdout: #{@result[:stdout]}
+        stderr: #{@result[:stderr]}
+    MESSAGE
   end
 
   diffable

@@ -35,7 +35,7 @@ module IsolatedAppDirHelper
     gem 'sinatra-activerecord', path: "#{__dir__ + '/../../'}"
   GEMFILE
 
-  BUNDLER_ENV_VARS = %w(RUBYOPT BUNDLE_PATH BUNDLE_BIN_PATH BUNDLE_GEMFILE).freeze
+  BUNDLER_ENV_VARS = %w[RUBYOPT BUNDLE_PATH BUNDLE_BIN_PATH BUNDLE_GEMFILE].freeze
 
   def within_isolated_app_dir
     with_clean_env do

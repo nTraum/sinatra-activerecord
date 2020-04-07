@@ -16,10 +16,11 @@ module Sinatra
 
           ::ActiveRecord::Migrator.migrations_paths.each do |directory|
             next unless File.exist?(directory)
+
             migration_files = Pathname(directory).children
             if migration_files.map { |path| path.basename.to_s.eq?(filename) }
               puts "#{filename} already exists"
-              fail
+              raise
             end
           end
 
@@ -36,7 +37,7 @@ module Sinatra
                 def change
                 end
             end
-            MIGRATION
+          MIGRATION
 
           puts "#{path} created."
         end
