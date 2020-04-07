@@ -8,7 +8,8 @@ end
 
 ActiveRecord::Tasks::DatabaseTasks.tap do |config|
   config.root                   = Rake.application.original_dir
-  config.env                    = ENV['RACK_ENV'] || 'development'
+  # TODO: activerecord env needs to become sinatra app env, but how?
+  config.env                    = ENV['APP_ENV'] || 'development'
   config.db_dir                 = 'db'
   config.migrations_paths       = ['db/migrate']
   config.fixtures_path          = 'test/fixtures'
