@@ -1,13 +1,23 @@
 # Changes
 * Drop support for Ruby 2.3 and older
 * Drop support for ActiveRecord 5 and older
-* Have tests that work
+* Drop support for Sinatra < 2
 
 TODO
-* Fix connections clearing after each request? How is Rails doing this?
 * Fix database configuration options
 * Use Sinatra logger if available
 * Fix ActiveRecord deprectation warnings
+* Fix README
+* * Migration from sinatra-activerecord
+
+* Specs
+* Add spec that verifies APP_ENV works
+* Add spec that verified RACK_ENV fallback works
+* Add spec that defines database configuration behavior, DATABASE_URL before everything else etc
+* Add specs for all supported ruby versions
+
+* Maybe
+* ActiveRecord 5 support?
 
 # Sinatra ActiveRecord Extension
 
