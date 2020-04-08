@@ -4,6 +4,7 @@ AllCops:
   TargetRubyVersion: 2.4
   Exclude:
     - 'vendor/bundle/**/*'
+    - 'example/**/*'
 Layout/LineLength:
   Max: 120
 Style/HashEachMethods:

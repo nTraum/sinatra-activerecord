@@ -4,8 +4,8 @@ require 'sinatra/activerecord/tasks/migration_creator.rb'
 
 namespace :db do
   desc 'Create a migration (parameters: NAME, VERSION)'
-  task :create_migration do
-    migration_creator = Sinatra::ActiveRecord::Tasks::MigrationCreator.new
+  task :create_migration, [:name] do |_task, args|
+    migration_creator = Sinatra::ActiveRecord::Tasks::MigrationCreator.new(args: args.to_a)
     migration_creator.run
   end
 end
