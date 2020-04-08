@@ -12,6 +12,10 @@ jobs:
       - checkout
 
       - run:
+          name: Install latest system gems
+          command: gem update --system
+
+      - run:
           name: Install latest bundler
           command: gem install bundler
 
