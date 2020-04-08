@@ -42,8 +42,6 @@ module Sinatra
         ::ActiveRecord::Base.establish_connection(spec.stringify_keys)
       else
         ::ActiveRecord::Base.configurations = {}
-        ::ActiveRecord::Base.configurations[environment.to_s] =
-          ::ActiveRecord::ConnectionAdapters::ConnectionSpecification::ConnectionUrlResolver.new(spec).to_hash
         ::ActiveRecord::Base.establish_connection(spec)
       end
     end
