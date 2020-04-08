@@ -2,7 +2,7 @@
 
 require 'fileutils'
 
-RSpec.shared_context 'Rake task executes successfully' do
+RSpec.shared_context 'isolated app dir' do
   around(:each) do |example|
     within_isolated_app_dir(&example)
   end
@@ -28,7 +28,7 @@ RSpec.describe 'Rake tasks' do
     context 'when name argument is given' do
       subject { 'db:create_migration[create_users]' }
 
-      include_context 'Rake task executes successfully' do
+      include_context 'isolated app dir' do
         let(:execute) { false }
 
         it 'generates a migration file' do
@@ -42,13 +42,26 @@ RSpec.describe 'Rake tasks' do
         end
       end
     end
+
+    context 'when name is missing' do
+      subject { 'db:create_migration' }
+
+      include_context 'isolated app dir' do
+        let(:execute) { false }
+
+        it 'fails' do
+          expect(command).not_to run_process
+          expect(Dir['./db/migrate/*.rb']).to be_empty
+        end
+      end
+    end
   end
 
   describe 'db:seed' do
     subject { 'db:seed' }
     context 'when a seed file exists' do
       before { FileUtils.touch 'db/seeds.rb' }
-      it_behaves_like 'Rake task executes successfully' do
+      it_behaves_like 'isolated app dir' do
         let(:execute) { true }
       end
     end
@@ -60,14 +73,14 @@ RSpec.describe 'Rake tasks' do
       describe task_name do
         subject { task_name }
 
-        include_context 'Rake task executes successfully' do
+        include_context 'isolated app dir' do
           let(:execute) { true }
         end
       end
     end
 
     describe 'tasks that need a schema file to exist' do
-      include_context 'Rake task executes successfully' do
+      include_context 'isolated app dir' do
         let(:execute) { false }
 
         context 'and it does exist' do
@@ -85,7 +98,6 @@ RSpec.describe 'Rake tasks' do
 
             it 'runs the task' do
               run_rake_task(%w[bundle exec rake db:migrate --trace])
-
               run_rake_task
             end
           end
