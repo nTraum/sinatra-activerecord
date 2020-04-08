@@ -9,8 +9,8 @@ RSpec.shared_context 'Rake task executes successfully' do
 
   let(:command) { ['bundle', 'exec', 'rake', subject, '--trace'] }
 
-  def run_rake_task
-    expect(command).to run_process
+  def run_rake_task(custom_command = nil)
+    expect(custom_command || command).to run_process
   end
 
   it 'executes successfully' do
@@ -39,6 +39,8 @@ RSpec.describe 'Rake tasks' do
 
         it 'runs the created migration' do
           run_rake_task
+
+          run_rake_task(%w[bundle exec rake db:migrate --trace])
         end
       end
     end
@@ -54,13 +56,42 @@ RSpec.describe 'Rake tasks' do
     end
   end
 
-  ['db:create', 'db:migrate',
-   'db:migrate:redo', 'db:migrate:reset']. each do |task_name|
-    describe task_name do
-      subject { task_name }
+  describe 'tasks without dependencies' do
+    ['db:create', 'db:create:all', 'db:migrate',
+     'db:migrate:redo', 'db:migrate:reset']. each do |task_name|
+      describe task_name do
+        subject { task_name }
 
+        include_context 'Rake task executes successfully' do
+          let(:execute) { true }
+        end
+      end
+    end
+
+    describe 'tasks that need a schema file to exist' do
       include_context 'Rake task executes successfully' do
-        let(:execute) { true }
+        let(:execute) { false }
+
+        context 'and it does exist' do
+          describe 'db:migrate:status' do
+            subject { 'db:migrate:status' }
+
+            it 'runs the task' do
+              run_rake_task(%w[bundle exec rake db:migrate --trace])
+              run_rake_task
+            end
+          end
+
+          describe 'db:schema:load' do
+            subject { 'db:schema:load' }
+
+            it 'runs the task' do
+              run_rake_task(%w[bundle exec rake db:migrate --trace])
+
+              run_rake_task
+            end
+          end
+        end
       end
     end
   end
