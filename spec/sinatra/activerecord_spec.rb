@@ -3,8 +3,6 @@
 require 'fileutils'
 
 RSpec.describe Sinatra::ActiveRecord do
-  let(:database_url) { 'sqlite3:///tmp/foo.sqlite3' }
-
   let(:app) do
     Class.new(Sinatra::Base) do
       set :root, nil
@@ -12,14 +10,28 @@ RSpec.describe Sinatra::ActiveRecord do
     end
   end
 
-  it 'exposes ActiveRecord::Base' do
-    expect(app.database).to eq ActiveRecord::Base
+  describe 'database spec' do
+    context 'when DATABASE_URL is given' do
+      let!(:database_url) { 'sqlite3:///tmp/foo.sqlite3' }
+
+      around(:each) do |example|
+        begin
+          ENV['DATABASE_URL'] = database_url
+          example.run
+        ensure
+          ENV.delete('DATABASE_URL')
+        end
+      end
+
+      it 'establishes the connection with a database url' do
+        app
+        expect { ActiveRecord::Base.connection }.not_to raise_error
+      end
+    end
   end
 
-  it 'establishes the connection with a database url' do
-    app.database = database_url
-
-    expect { ActiveRecord::Base.connection }.not_to raise_error
+  it 'exposes ActiveRecord::Base' do
+    expect(app.database).to eq ActiveRecord::Base
   end
 
   it 'establishes the connection with a hash' do
@@ -48,15 +60,6 @@ RSpec.describe Sinatra::ActiveRecord do
 
   it "doesn't try to establish connection when database isn't set" do
     expect { app.database }.not_to raise_error
-  end
-
-  it "establishes connection from DATABASE_URL if it's present" do
-    ENV['DATABASE_URL'] = database_url
-    app
-
-    expect { ActiveRecord::Base.connection }.not_to raise_error
-
-    ENV.delete('DATABASE_URL')
   end
 
   it 'allows specifying database through a file' do

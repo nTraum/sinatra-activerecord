@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Provides temporary app directories to for testing
 module IsolatedAppDirHelper
   RAKEFILE_CONTENT = <<~RAKEFILE.strip
     # frozen_string_literal: true
@@ -38,23 +39,34 @@ module IsolatedAppDirHelper
 
   APP_ENV_VARS = %w[RACK_ENV APP_ENV].freeze
 
-  def within_isolated_app_dir
+  # Strips out Bundler and App environment variables and provides an app dir
+  # @see #within_isolated_app_dir
+  # @see #with_clean_env
+  def within_env_isolated_app_dir
     with_clean_env do
-      # env.each_pair do |key, value|
-      #   ENV[key] = value
-      # end
-      Dir.mktmpdir('app') do |tmp_dir|
-        Dir.chdir(tmp_dir) do
-          File.write('Gemfile', GEMFILE_CONTENT)
-          File.write('Rakefile', RAKEFILE_CONTENT)
-          File.write('app.rb', APPFILE_CONTENT)
-          FileUtils.mkdir_p 'db'
-          yield
-        end
+      within_isolated_app_dir(create_app_files: true) do
+        yield
       end
     end
   end
 
+  # Creates a temporary app dir
+  # @param create_app_files [Boolean] Creates a Gemfile, Rakefile and app.rb if true
+  def within_isolated_app_dir(create_app_files:)
+    Dir.mktmpdir('app') do |tmp_dir|
+      Dir.chdir(tmp_dir) do
+        if create_app_files
+          File.write('Gemfile', GEMFILE_CONTENT)
+          File.write('Rakefile', RAKEFILE_CONTENT)
+          File.write('app.rb', APPFILE_CONTENT)
+          Dir.mkdir('db')
+        end
+        yield
+      end
+    end
+  end
+
+  # Strips out Bundler and App environment variables
   def with_clean_env
     unset_env_vars
     yield

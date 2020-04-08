@@ -4,7 +4,7 @@ require 'fileutils'
 
 RSpec.shared_context 'isolated app dir' do
   around(:each) do |example|
-    within_isolated_app_dir(&example)
+    within_env_isolated_app_dir(&example)
   end
 
   let(:command) { ['bundle', 'exec', 'rake', subject, '--trace'] }

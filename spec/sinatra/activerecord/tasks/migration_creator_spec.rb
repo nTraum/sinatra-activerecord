@@ -4,15 +4,7 @@ require 'sinatra/activerecord/tasks/migration_creator'
 
 RSpec.shared_context 'isolated db dir' do
   around(:each) do |example|
-    within_isolated_db_dir(&example)
-  end
-
-  def within_isolated_db_dir
-    Dir.mktmpdir('db') do |tmp_dir|
-      Dir.chdir(tmp_dir) do
-        yield
-      end
-    end
+    within_isolated_app_dir(create_app_files: true, &example)
   end
 end
 
