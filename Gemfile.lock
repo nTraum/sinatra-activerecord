@@ -3,7 +3,7 @@ PATH
   specs:
     sinatra-activerecord (2.0.13)
       activerecord (>= 6.0)
-      activesupport (> 6.0)
+      activesupport (>= 6.0)
       dry-monads (>= 1.3.2)
       rake
       sinatra (>= 2.0)
