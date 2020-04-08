@@ -4,6 +4,8 @@
 * Drop support for Sinatra < 2
 
 TODO
+* use sintra root dir for activerecord paths
+* use sinatra env for activerecord env
 * Fix database configuration options
 * Use Sinatra logger if available
 * Fix ActiveRecord deprectation warnings
@@ -58,7 +60,7 @@ the extension:
 
 ```ruby
 class YourApplication < Sinatra::Base
-  register Sinatra::ActiveRecordExtension
+  register Sinatra::ActiveRecord
 end
 ```
 

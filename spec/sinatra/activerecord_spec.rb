@@ -2,13 +2,13 @@
 
 require 'fileutils'
 
-RSpec.describe 'the sinatra extension' do
+RSpec.describe Sinatra::ActiveRecord do
   let(:database_url) { 'sqlite3:///tmp/foo.sqlite3' }
 
   let(:app) do
     Class.new(Sinatra::Base) do
       set :root, nil
-      register Sinatra::ActiveRecordExtension
+      register Sinatra::ActiveRecord
     end
   end
 

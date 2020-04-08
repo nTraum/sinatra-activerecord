@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
 require 'active_record'
-
-require 'sinatra/base'
 require 'active_support/core_ext/hash/keys'
-
-require 'logger'
-require 'pathname'
-require 'yaml'
 require 'erb'
+require 'pathname'
+require 'sinatra/base'
+require 'yaml'
 
 module Sinatra
   module ActiveRecordHelper
@@ -17,7 +14,7 @@ module Sinatra
     end
   end
 
-  module ActiveRecordExtension
+  module ActiveRecord
     def self.registered(app)
       if ENV['DATABASE_URL']
         app.set :database, ENV['DATABASE_URL']
@@ -56,5 +53,5 @@ module Sinatra
     end
   end
 
-  register ActiveRecordExtension
+  register ActiveRecord
 end

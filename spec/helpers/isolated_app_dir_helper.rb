@@ -20,7 +20,7 @@ module IsolatedAppDirHelper
     require 'sinatra'
     require 'sinatra/activerecord'
 
-    register Sinatra::ActiveRecordExtension
+    register Sinatra::ActiveRecord
     set :database, { adapter: 'sqlite3', database: 'db/database.sqlite3' }
 
   APPFILE
