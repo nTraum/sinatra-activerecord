@@ -15,7 +15,7 @@ module Sinatra
 
         attr_reader :args, :name, :version, :filename, :klass, :dirname, :path
 
-        def initialize(args:)
+        def initialize(args: [])
           @args = args
           @name = parse_name_from!(args)
           @version = Time.now.utc.strftime('%Y%m%d%H%M%S')

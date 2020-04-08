@@ -21,9 +21,9 @@ end
 # Integration tests?
 RSpec.describe 'Rake tasks' do
   describe 'db:create_migration' do
-    around(:each) do |example|
-      Timecop.freeze { example.run }
-    end
+    # around(:each) do |example|
+    #   Timecop.freeze { example.run }
+    # end
 
     context 'when name argument is given' do
       subject { 'db:create_migration[create_users]' }
