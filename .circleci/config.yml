@@ -13,7 +13,7 @@ jobs:
 
       - run:
           name: Install latest system gems
-          command: gem update --system
+          command: sudo gem update --system
 
       - run:
           name: Install latest bundler
