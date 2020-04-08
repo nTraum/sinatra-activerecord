@@ -18,13 +18,10 @@ RSpec.shared_context 'isolated app dir' do
   end
 end
 
-# Integration tests?
+# Integration specs to verify the various rake tasks.
+# Specs in here are executed in an isolated app project directory.
 RSpec.describe 'Rake tasks' do
   describe 'db:create_migration' do
-    # around(:each) do |example|
-    #   Timecop.freeze { example.run }
-    # end
-
     context 'when name argument is given' do
       subject { 'db:create_migration[create_users]' }
 
