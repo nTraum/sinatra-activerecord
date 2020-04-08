@@ -4,7 +4,9 @@ ENV['RACK_ENV'] = 'test'
 ENV['APP_ENV'] = 'test'
 
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  enable_coverage :branch
+end
 
 if ENV['CODECOV_ENABLED'] == 'true'
   require 'codecov'
