@@ -8,12 +8,16 @@ require 'sinatra/base'
 require 'yaml'
 
 module Sinatra
+  # Sinatra extension that provides a {#database} helper method to access the database.
+  # @note This module should not be used stand-alone, use {Sinatra::ActiveRecord} instead.
   module ActiveRecordHelper
+    # @return [ActiveRecord::Base] Returns ActiveRecord's database.
     def database
       settings.database
     end
   end
 
+  # Sinatra extension that provides ActiveRecord integration.
   module ActiveRecord
     DATABASE_FILE_RELATIVE_ERROR_MESSAGE = <<~MSG
       database_file must not be relative when root is not defined.

@@ -8,13 +8,47 @@ require 'pathname'
 module Sinatra
   module ActiveRecord
     module Tasks
-      # Takes care of creating a new migration file
+      # Takes care of creating a new migration file.
       class MigrationCreator
         BASE_KLASS = 'ActiveRecord::Migration' + "[#{::ActiveRecord::Migration.current_version}]"
         NAME_MISSING = 'NAME missing, usage: rake db:create_migration[name]'
 
-        attr_reader :args, :name, :version, :filename, :klass, :dirname, :path
+        # Command line arguments
+        # @return [Array<String>]
+        attr_reader :args
 
+        # User specified name of the migration file
+        # @return [String]
+        attr_reader :name
+
+        # Auto-generated version of the migration file
+        # @return [String]
+        attr_reader :version
+
+        # The full filename of the migration file
+        # @return [String]
+        attr_reader :filename
+
+        # The ruby class of the migration
+        # @return [String]
+        attr_reader :klass
+
+        # The directory path where the migration file will be placed
+        # @return [String]
+        attr_reader :dirname
+
+        # The full path to the migration file
+        # @return [String]
+        attr_reader :path
+
+        # @param args [Array<String>] An array of arguments passed to the creator.
+        #  The first argument must be the migration name, raises {ArgumentError} otherwise.
+        # @example
+        #  MigrationCreator.new(['create_users']).run
+        #  # Creates a migration file `20200101_create_users.rb`
+        #
+        #  MigrationCreator.new(['CreateUsers']).run
+        #  # Creates a migration file `20200101_create_users.rb`
         def initialize(args: [])
           @args = args
           @name = parse_name_from!(args)
@@ -25,6 +59,7 @@ module Sinatra
           @path = File.join(dirname, filename)
         end
 
+        # First, verifies that the generated filename does not exist, then creates the migration file.
         def run
           verify_filename_does_not_exist_yet!
           create_migration_file
