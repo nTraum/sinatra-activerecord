@@ -49,22 +49,34 @@ module Sinatra
     end
 
     def database=(spec)
-      # with environment?
       if spec.is_a?(Hash) && spec.symbolize_keys[environment.to_sym]
-        ::ActiveRecord::Base.configurations = spec.stringify_keys
-        ::ActiveRecord::Base.establish_connection(environment.to_sym)
+        connect_with_environments(spec)
       elsif spec.is_a?(Hash)
-        # without environment?
-        ::ActiveRecord::Base.configurations = { environment.to_sym => spec }
-        ::ActiveRecord::Base.establish_connection(spec.stringify_keys)
+        connect_with_app_env(spec)
       else
-        ::ActiveRecord::Base.configurations = {}
-        ::ActiveRecord::Base.establish_connection(spec)
+        connect_with_url(spec)
       end
     end
 
     def database
       ::ActiveRecord::Base
+    end
+
+    private
+
+    def connect_with_environments(spec)
+      ::ActiveRecord::Base.configurations = spec.stringify_keys
+      ::ActiveRecord::Base.establish_connection(environment.to_sym)
+    end
+
+    def connect_with_app_env(spec)
+      ::ActiveRecord::Base.configurations = { environment.to_sym => spec }
+      ::ActiveRecord::Base.establish_connection(spec.stringify_keys)
+    end
+
+    def connect_with_url(url)
+      ::ActiveRecord::Base.configurations = {}
+      ::ActiveRecord::Base.establish_connection(url)
     end
   end
 
