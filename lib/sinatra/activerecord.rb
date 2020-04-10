@@ -8,6 +8,8 @@ require 'pathname'
 require 'sinatra/base'
 require 'yaml'
 
+require 'sinatra/activerecord/version'
+
 module Sinatra
   # Sinatra extension that provides a {#database} helper method to access the database.
   # @note This module should not be used stand-alone, use {Sinatra::ActiveRecord} instead.
