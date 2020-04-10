@@ -49,7 +49,7 @@ RSpec.describe Sinatra::ActiveRecord::Tasks::MigrationCreator do
           subject { 2.times { described_class.new(args: args).run } }
 
           it 'raises ArgumentError' do
-            expect { subject }.to raise_error(ArgumentError)
+            expect { subject }.to raise_error(ArgumentError).and output.to_stdout
           end
         end
       end
