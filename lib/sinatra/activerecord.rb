@@ -3,6 +3,7 @@
 require 'active_record'
 require 'active_support/core_ext/hash/keys'
 require 'erb'
+require 'logger'
 require 'pathname'
 require 'sinatra/base'
 require 'yaml'
@@ -24,9 +25,14 @@ module Sinatra
       Change database_file to an absolute path or set the app root of your sinatra app instead.
     MSG
 
-    # Registers the extension for the specified app.
+    # Registers the extension for the specified app:
+    # - Configures the logger to STDOUT
+    # - Checks for DATABASE_ENV or default path
+    # - Establishes database connection
     # @param app [Sinatra::Base] The sinatra app.
     def self.registered(app)
+      ::ActiveRecord::Base.logger = Logger.new(STDOUT)
+
       if ENV['DATABASE_URL']
         app.set :database, ENV['DATABASE_URL']
       elsif File.exist?("#{Dir.pwd}/config/database.yml")
@@ -38,6 +44,11 @@ module Sinatra
       app.after { ::ActiveRecord::Base.clear_active_connections! }
     end
 
+    # Sets the database spec by reading a yaml file
+    # @param path [String] Relative or absolute path to database configuration file.
+    #  If the path is relative, `root` must be specified.
+    # @see sinatrarb.com/configuration.html
+    # @raise [ArgumentError]
     def database_file=(path)
       if Pathname(path).relative?
         raise(ArgumentError, DATABASE_FILE_RELATIVE_ERROR_MESSAGE) unless root

@@ -216,4 +216,9 @@ RSpec.describe Sinatra::ActiveRecord do
       xit { is_expected.to eq(nil) }
     end
   end
+
+  describe 'logging' do
+    subject { app.database.logger }
+    it { is_expected.to be_a(Logger) }
+  end
 end
