@@ -97,14 +97,11 @@ bundle install
 
 Do a test run or run your tests now. Depending on your sinatra app and database configuration, this maybe was the last step.
 In short, the following things changed:
-- Database configuration: Sinatra's env var `APP_ENV` / `environment` is treated sanely.
-- `rake db:create_migration` syntax changed
-- Logging: ActiveRecord now logs to whatever your `logger` is set to.
-
+- Database configuration: Sinatra's env var `APP_ENV` / `environment` is treated sanely, see TODO
+- `rake db:create_migration` syntax changed, see TODO
+- Logging: ActiveRecord now logs to STDOUT by default, see TODO
 
 If you need to upgrade to a more recent version of ActiveRecord first, check https://guides.rubyonrails.org/upgrading_ruby_on_rails.html for ActiveRecord related changes.
-
-
 
 ## Setup
 
