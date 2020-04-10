@@ -13,7 +13,7 @@ RSpec.shared_examples 'creates migration file' do |expected_migration_name|
     expected_timestamp = Time.now.utc.strftime('%Y%m%d%H%M%S')
     expected_filename = "#{expected_timestamp}_#{expected_migration_name}.rb"
 
-    subject
+    expect { subject }.to output(anything).to_stdout
 
     expect(File.exist?("db/migrate/#{expected_filename}")).to eq(true)
   end
@@ -35,10 +35,6 @@ RSpec.describe Sinatra::ActiveRecord::Tasks::MigrationCreator do
         let(:args) { [name] }
 
         context 'and the file does not exist yet' do
-          it 'raises no error' do
-            expect { subject }.not_to raise_error
-          end
-
           it_behaves_like 'creates migration file', 'create_users'
         end
 
