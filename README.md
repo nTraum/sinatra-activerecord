@@ -1,15 +1,8 @@
-# Changes
-* Drop support for Ruby 2.3 and older
-* Drop support for ActiveRecord 5 and older
-* Drop support for Sinatra < 2
-
 TODO
 * use sintra root dir for activerecord paths
 * use sinatra env for activerecord env
 * Fix database configuration options
 * Fix README
-  * * Migration from sinatra-activerecord
-  * *
 
 * Specs
 * Add spec that verifies APP_ENV works
@@ -33,6 +26,8 @@ sinatra-activerecord6 allows you to use ActiveRecord in your Sinatra app.
 * ActiveRecord 6 or newer
 
 # Installation
+
+See [./doc/migrating_from_sinatra_activerecord.md](Migrating from sinatra-activerecord) if you want to migrate from an existing app that used `sinatra-activerecord` so far.
 
 Add `sinatra-activerecord6` to your Gemfile:
 
@@ -77,41 +72,6 @@ bundle exec rake db:create_migration[create_users]
 # Fix for zsh no matches found error: db:create_migration[create_users]
 bundle exec rake db:create_migration\[create_users\]
 ```
-
-### Migrating from sinatra-activerecord
-
-Update your Gemfile:
-
-```ruby
-# Gemfile
-
-# gem 'sinatra-activerecord'
-gem 'sinatra-activerecord6', require: 'sinatra-activerecord'
-```
-
-Update your Sinatra app to use new extension:
-
-```
-# app.rb
-
-# register Sinatra::ActiveRecordExtension
-register Sinatra::ActiveRecord
-
-```
-
-Install gems:
-
-```sh
-bundle install
-```
-
-Do a test run or run your tests now. Depending on your sinatra app and database configuration, this maybe was the last step.
-In short, the following things changed:
-- Database configuration: Sinatra's env var `APP_ENV` / `environment` is treated sanely, see TODO
-- `rake db:create_migration` syntax changed, see TODO
-- Logging: ActiveRecord now logs to STDOUT by default, see TODO
-
-If you need to upgrade to a more recent version of ActiveRecord first, check https://guides.rubyonrails.org/upgrading_ruby_on_rails.html for ActiveRecord related changes.
 
 ## Setup
 
@@ -245,14 +205,10 @@ else
 end
 ```
 
-## History
+# History
 
-This gem was made in 2009 by Blake Mizerany, creator of Sinatra.
+This gem was originally made in 2009 by Blake Mizerany, creator of Sinatra.
 
-## Social
+# License
 
-You can follow me on Twitter, I'm [@jankomarohnic](http://twitter.com/jankomarohnic).
-
-## License
-
-[MIT](https://github.com/janko-m/sinatra-activerecord/blob/master/LICENSE)
+[https://github.com/nTraum/sinatra-activerecord6/blob/master/LICENSE](MIT)
