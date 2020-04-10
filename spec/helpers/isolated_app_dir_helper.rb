@@ -31,7 +31,7 @@ module IsolatedAppDirHelper
 
     gem 'sinatra'
     gem 'sqlite3'
-    gem 'sinatra-activerecord', path: "#{__dir__ + '/../../'}"
+    gem 'sinatra-activerecord6', path: "#{__dir__ + '/../../'}", require: 'sinatra-activerecord'
   GEMFILE
 
   BUNDLER_ENV_VARS = %w[RUBYOPT BUNDLE_PATH BUNDLE_BIN_PATH BUNDLE_GEMFILE].freeze

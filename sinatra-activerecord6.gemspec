@@ -14,11 +14,16 @@ Gem::Specification.new do |gem|
   gem.description  = 'Extends Sinatra with ActiveRecord helpers.'
   gem.summary      = gem.description
 
+  gem.metadata['homepage_uri']    = gem.homepage
+  gem.metadata['source_code_uri'] = gem.homepage
+  gem.metadata['changelog_uri']   = 'https://github.com/ntraum/sinatra-activerecord6/CHANGELOG.md'
 
-
-  gem.files        = Dir['lib/**/*'] + ['README.md', 'LICENSE']
-  gem.require_path = 'lib'
-  gem.test_files   = gem.files.grep(%r{^(test|spec|features)/})
+  # Specify which files should be added to the gem when it is released.
+  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
+  gem.files = Dir.chdir(File.expand_path(__dir__)) do
+    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  end
+  gem.require_paths = ['lib']
 
   gem.required_ruby_version = '>= 2.4.0'
 
