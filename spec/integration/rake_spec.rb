@@ -79,28 +79,28 @@ RSpec.describe 'Rake tasks' do
         end
       end
     end
+  end
 
-    describe 'tasks that need a schema file to exist' do
-      include_context 'isolated app dir' do
-        let(:execute) { false }
+  describe 'tasks that need a schema file to exist' do
+    include_context 'isolated app dir' do
+      let(:execute) { false }
 
-        context 'and it does exist' do
-          describe 'db:migrate:status' do
-            subject { 'db:migrate:status' }
+      context 'and it does exist' do
+        describe 'db:migrate:status' do
+          subject { 'db:migrate:status' }
 
-            it 'runs the task' do
-              run_rake_task(%w[bundle exec rake db:migrate --trace])
-              run_rake_task
-            end
+          it 'runs the task' do
+            run_rake_task(%w[bundle exec rake db:migrate --trace])
+            run_rake_task
           end
+        end
 
-          describe 'db:schema:load' do
-            subject { 'db:schema:load' }
+        describe 'db:schema:load' do
+          subject { 'db:schema:load' }
 
-            it 'runs the task' do
-              run_rake_task(%w[bundle exec rake db:migrate --trace])
-              run_rake_task
-            end
+          it 'runs the task' do
+            run_rake_task(%w[bundle exec rake db:migrate --trace])
+            run_rake_task
           end
         end
       end
