@@ -41,9 +41,10 @@ RSpec.shared_examples 'connects to the database' do
   end
 end
 
-RSpec.shared_examples 'raises error when connecting to the database' do
+RSpec.shared_examples 'raises error when connecting to the database' do |error|
   it 'raises' do
-    expect { subject }.to raise_error
+    expect { subject }.to raise_error(error)
+    expect { subject }.to raise_error(KeyError) unless error
   end
 end
 
@@ -73,8 +74,9 @@ RSpec.describe Sinatra::ActiveRecord do
       end
 
       context 'invalid (empty) spec' do
+        let(:root) { Dir.pwd }
         let(:database_spec) { {} }
-        include_examples 'raises error when connecting to the database'
+        include_examples 'raises error when connecting to the database', ActiveRecord::AdapterNotSpecified
       end
 
       context 'multiple databases' do
@@ -97,14 +99,16 @@ RSpec.describe Sinatra::ActiveRecord do
 
     context 'invalid (empty) file' do
       include_context 'when database.yml exists'
+      let(:root) { Dir.pwd }
       let(:database_file) { 'config/my_db.yml' }
       let(:database_spec) { {} }
-      include_examples 'raises error when connecting to the database'
+      include_examples 'raises error when connecting to the database', ActiveRecord::AdapterNotSpecified
     end
 
     context 'file does not exist' do
+      let(:root) { Dir.pwd }
       let(:database_file) { 'config/my_db.yml' }
-      include_examples 'raises error when connecting to the database'
+      include_examples 'raises error when connecting to the database', Errno::ENOENT
     end
 
     context '#root is absolute' do
@@ -148,7 +152,7 @@ RSpec.describe Sinatra::ActiveRecord do
 
       context '#database_file is relative' do
         let(:database_file) { 'config/my_db.yml' }
-        include_examples 'raises error when connecting to the database'
+        include_examples 'raises error when connecting to the database', ArgumentError
       end
     end
   end
@@ -178,7 +182,7 @@ RSpec.describe Sinatra::ActiveRecord do
 
     context 'an empty hash' do
       let(:database_spec) { {} }
-      include_examples 'raises error when connecting to the database'
+      include_examples 'raises error when connecting to the database', ActiveRecord::AdapterNotSpecified
     end
 
     describe 'supports sinatra app env' do
