@@ -14,7 +14,7 @@ touch Gemfile
 # Gemfile
 source 'https://rubygems.org'
 
-gem 'sinatra-activerecord6'
+gem 'sinatra-activerecord6', require: 'sinatra-activerecord'
 gem 'sqlite3'
 ```
 

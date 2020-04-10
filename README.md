@@ -83,13 +83,23 @@ bundle exec rake db:create_migration\[create_users\]
 Update your Gemfile:
 
 ```ruby
+# Gemfile
+
 # gem 'sinatra-activerecord'
 gem 'sinatra-activerecord6', require: 'sinatra-activerecord'
 ```
 
-Install gems:
+Update your Sinatra app to use new extension:
 
-Run bundle install:
+```
+# app.rb
+
+# register Sinatra::ActiveRecordExtension
+register Sinatra::ActiveRecord
+
+```
+
+Install gems:
 
 ```sh
 bundle install
