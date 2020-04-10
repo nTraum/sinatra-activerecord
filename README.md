@@ -25,9 +25,42 @@ TODO
 
 [![CircleCI](https://circleci.com/gh/nTraum/sinatra-activerecord.svg?style=shield)](https://app.circleci.com/pipelines/github/nTraum/sinatra-activerecord) [![codecov](https://codecov.io/gh/nTraum/sinatra-activerecord/branch/master/graph/badge.svg)](https://codecov.io/gh/nTraum/sinatra-activerecord)
 
-Extends [Sinatra](http://www.sinatrarb.com/) with extension methods and Rake
-tasks for dealing with an SQL database using the
-[ActiveRecord ORM](https://github.com/rails/rails/tree/master/activerecord).
+sinatra-activerecord6 allows you to use ActiveRecord in your Sinatra app.
+
+# Requirements
+
+* Ruby 2.4 or newer
+* Sinatra 2 or newer
+* ActiveRecord 6 or newer
+
+# Installation
+
+Add `sinatra-activerecord6` to your Gemfile:
+
+```ruby
+gem 'sinatra-activerecord6', require: 'sinatra-activerecord'
+```
+
+Add your database adapter to your Gemfile:
+
+```ruby
+# SQLite
+gem 'sqlite3'
+```
+
+Run bundle install:
+
+```sh
+bundle install
+```
+
+## Usage
+
+This library provides a Sinatra extension that connects to the database via ActiveRecord and Rake tasks to interact with the database.
+
+### Configure your sinatra app
+
+ActiveRecord integrates with Sinatra's `environment` setting (see [docs](http://sinatrarb.com/configuration.html))
 
 ## Setup
 
