@@ -8,9 +8,10 @@ TODO
 * use sinatra env for activerecord env
 * Fix database configuration options
 * Use Sinatra logger if available
-* Fix ActiveRecord deprectation warnings
+* Defaults for environments: logging, what else?
 * Fix README
-* * Migration from sinatra-activerecord
+  * * Migration from sinatra-activerecord
+  * *
 
 * Specs
 * Add spec that verifies APP_ENV works
@@ -60,7 +61,24 @@ This library provides a Sinatra extension that connects to the database via Acti
 
 ### Configure your sinatra app
 
-ActiveRecord integrates with Sinatra's `environment` setting (see [docs](http://sinatrarb.com/configuration.html))
+ActiveRecord integrates with Sinatra's `environment` behavior (see [docs](http://sinatrarb.com/configuration.html)). When you want to specify different databases for environments (as in Rails), ActiveRecord will choose the database that is defined via `environment`. If `environment` is empty, Sinatra will set it to whatever the environment variable `APP_ENV` is (or default to `development`).
+
+
+### Add database tasks to Rake
+
+
+### Create migrations
+
+See https://guides.rubyonrails.org/active_record_migrations.html first for a general introduction.
+
+We can't use `rails generate migration create_users`, so we'll use `rake db:create_migration[create_users]` instead. If you use zsh shell and see this error, escape the arguments.
+
+```sh
+bundle exec rake db:create_migration[create_users]
+
+# zsh shell users
+bundle exec rake db:create_migration\[create_users\]
+```
 
 ## Setup
 
