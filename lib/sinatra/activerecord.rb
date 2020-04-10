@@ -31,7 +31,7 @@ module Sinatra
     # - Establishes database connection
     # @param app [Sinatra::Base] The sinatra app.
     def self.registered(app)
-      ::ActiveRecord::Base.logger = Logger.new(STDOUT)
+      ::ActiveRecord::Base.logger = Logger.new(STDOUT) unless ::ActiveRecord::Base.logger
 
       if ENV['DATABASE_URL']
         app.set :database, ENV['DATABASE_URL']

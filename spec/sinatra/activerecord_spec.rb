@@ -44,7 +44,6 @@ end
 RSpec.shared_examples 'raises error when connecting to the database' do |error|
   it 'raises' do
     expect { subject }.to raise_error(error)
-    expect { subject }.to raise_error(KeyError) unless error
   end
 end
 
@@ -219,6 +218,12 @@ RSpec.describe Sinatra::ActiveRecord do
 
   describe 'logging' do
     subject { app.database.logger }
-    it { is_expected.to be_a(Logger) }
+    it 'to STDOUT by default' do
+      expect(ActiveRecord::Base).to receive(:logger=).and_call_original
+      subject
+    end
+
+    context 'overwriting it' do
+    end
   end
 end
