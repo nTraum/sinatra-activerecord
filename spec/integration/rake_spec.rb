@@ -21,6 +21,7 @@ end
 # Integration specs to verify the various rake tasks.
 # Specs in here are executed in an isolated app project directory.
 RSpec.describe 'Rake tasks' do
+  skip('ENV var set, skipping...') if ENV['SKIP_INTEGRATION_TESTS']
   describe 'db:create_migration' do
     context 'when name argument is given' do
       subject { 'db:create_migration[create_users]' }
