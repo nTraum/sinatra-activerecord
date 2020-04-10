@@ -7,8 +7,6 @@ TODO
 * use sintra root dir for activerecord paths
 * use sinatra env for activerecord env
 * Fix database configuration options
-* Use Sinatra logger if available
-* Defaults for environments: logging, what else?
 * Fix README
   * * Migration from sinatra-activerecord
   * *

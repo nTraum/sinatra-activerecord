@@ -217,13 +217,26 @@ RSpec.describe Sinatra::ActiveRecord do
   end
 
   describe 'logging' do
-    subject { app.database.logger }
+    subject { app }
     it 'to STDOUT by default' do
-      expect(ActiveRecord::Base).to receive(:logger=).and_call_original
+      pending('set before mock?')
+      expect(app.database).to receive(:logger=).and_call_original
       subject
     end
 
     context 'overwriting it' do
+      subject do
+        Class.new(Sinatra::Base) do
+          set :root, nil
+          register Sinatra::ActiveRecord
+
+          ::ActiveRecord::Base.logger = :something
+        end
+      end
+
+      it 'works' do
+        expect(subject.database.logger).to eq(:something)
+      end
     end
   end
 end
