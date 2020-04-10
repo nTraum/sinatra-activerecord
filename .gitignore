@@ -1,10 +1,9 @@
 /.bundle/
 /.yardoc
-/_yardoc/
 /coverage/
-/doc/
+/example
 /pkg/
 /spec/examples.txt
-/example
 /tmp/
 /vendor
+/yardoc/

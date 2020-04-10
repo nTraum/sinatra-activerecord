@@ -74,7 +74,7 @@ We can't use `rails generate migration create_users`, so we'll use `rake db:crea
 ```sh
 bundle exec rake db:create_migration[create_users]
 
-# Fix for zsh no matches found: db:create_migration[create_users]
+# Fix for zsh no matches found error: db:create_migration[create_users]
 bundle exec rake db:create_migration\[create_users\]
 ```
 
