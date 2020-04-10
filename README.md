@@ -22,7 +22,7 @@ TODO
 * Maybe
 * ActiveRecord 5 support?
 
-# Sinatra ActiveRecord Extension
+# sinatra-activerecord6
 
 [![CircleCI](https://circleci.com/gh/nTraum/sinatra-activerecord.svg?style=shield)](https://app.circleci.com/pipelines/github/nTraum/sinatra-activerecord) [![codecov](https://codecov.io/gh/nTraum/sinatra-activerecord/branch/master/graph/badge.svg)](https://codecov.io/gh/nTraum/sinatra-activerecord)
 
@@ -76,9 +76,37 @@ We can't use `rails generate migration create_users`, so we'll use `rake db:crea
 ```sh
 bundle exec rake db:create_migration[create_users]
 
-# zsh shell users
+# Fix for zsh no matches found: db:create_migration[create_users]
 bundle exec rake db:create_migration\[create_users\]
 ```
+
+### Migrating from sinatra-activerecord
+
+Update your Gemfile:
+
+```ruby
+# gem 'sinatra-activerecord'
+gem 'sinatra-activerecord6', require: 'sinatra-activerecord'
+```
+
+Install gems:
+
+Run bundle install:
+
+```sh
+bundle install
+```
+
+Do a test run or run your tests now. Depending on your sinatra app and database configuration, this maybe was the last step.
+In short, the following things changed:
+- Database configuration: Sinatra's env var `APP_ENV` / `environment` is treated sanely.
+- `rake db:create_migration` syntax changed
+- Logging: ActiveRecord now logs to whatever your `logger` is set to.
+
+
+If you need to upgrade to a more recent version of ActiveRecord first, check https://guides.rubyonrails.org/upgrading_ruby_on_rails.html for ActiveRecord related changes.
+
+
 
 ## Setup
 
