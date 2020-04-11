@@ -1,4 +1,5 @@
 --hide-void-return
 --markup markdown
+--markup-provider redcarpet
 --output-dir yardoc
 --files doc/**/*.md

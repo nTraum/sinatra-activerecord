@@ -1,6 +1,6 @@
 ### Migrating from sinatra-activerecord
 
-If your app used https://github.com/sinatra-activerecord/sinatra-activerecord so far, follow this guide.
+If your app used [sinatra-activerecord](https://github.com/sinatra-activerecord/sinatra-activerecord) so far, follow this guide.
 
 Update your Gemfile:
 

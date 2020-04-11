@@ -1,4 +1,5 @@
 TODO
+
 * use sintra root dir for activerecord paths
 * use sinatra env for activerecord env
 * Fix database configuration options
@@ -15,7 +16,7 @@ TODO
 
 # sinatra-activerecord6
 
-[![CircleCI](https://circleci.com/gh/nTraum/sinatra-activerecord.svg?style=shield)](https://app.circleci.com/pipelines/github/nTraum/sinatra-activerecord) [![codecov](https://codecov.io/gh/nTraum/sinatra-activerecord/branch/master/graph/badge.svg)](https://codecov.io/gh/nTraum/sinatra-activerecord)
+[![CircleCI](https://circleci.com/gh/nTraum/sinatra-activerecord6.svg?style=shield)](https://app.circleci.com/pipelines/github/nTraum/sinatra-activerecord6) [![codecov](https://codecov.io/gh/nTraum/sinatra-activerecord6/branch/master/graph/badge.svg)](https://codecov.io/gh/nTraum/sinatra-activerecord6)
 
 sinatra-activerecord6 allows you to use ActiveRecord in your Sinatra app.
 
@@ -27,7 +28,7 @@ sinatra-activerecord6 allows you to use ActiveRecord in your Sinatra app.
 
 # Installation
 
-See [./doc/migrating_from_sinatra_activerecord.md](Migrating from sinatra-activerecord) if you want to migrate from an existing app that used `sinatra-activerecord` so far.
+See [Migrating from sinatra-activerecord](./doc/migrating_from_sinatra_activerecord.md) if you want to migrate from an existing app that used `sinatra-activerecord` so far.
 
 Add `sinatra-activerecord6` to your Gemfile:
 
