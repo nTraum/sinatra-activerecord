@@ -51,12 +51,77 @@ bundle install
 
 ## Usage
 
-This library provides a Sinatra extension that connects to the database via ActiveRecord and Rake tasks to interact with the database.
+This chapter provides a deep dive into many functionalities of the gem, if you just want to get something going quickly, see the [Quickstart](./doc/quickstart.md) instead come back here later if you want.
 
 ### Configure your sinatra app
 
-ActiveRecord integrates with Sinatra's `environment` behavior (see [docs](http://sinatrarb.com/configuration.html)). When you want to specify different databases for environments (as in Rails), ActiveRecord will choose the database that is defined via `environment`. If `environment` is empty, Sinatra will set it to whatever the environment variable `APP_ENV` is (or default to `development`).
+#### Configure single database (simple)
 
+If you don't care about your environment, you can set the `DATABASE_URL` and start your app:
+
+```sh
+DATABASE_URL=postgresql://localhost/blog_development?pool=5 ruby app.rb
+```
+
+You can also specify a configuration file `config/database.yml`:
+
+```yaml
+adapter: postgresql
+database: blog_development
+pool: 5
+```
+
+If you prefer the configuration to happen within your app, use the `database` setting instead.
+
+```ruby
+# app.rb
+
+set :database, { adapter: 'postgresql',  database: 'blog'_development, pool: 5 }
+```
+
+You should only use **one** way of configuring your database not not mix them.
+
+#### Configure mulitple databases (Rails way)
+
+See [Rails database configuration](https://guides.rubyonrails.org/configuring.html#configuring-a-database) for a general introduction.
+
+The gem configures ActiveRecord to work well with Sinatra's `environment` behavior (see [docs](http://sinatrarb.com/configuration.html)). When you want to specify different databases for environments (as in Rails), ActiveRecord will choose the database that is defined via `environment`. If `environment` is empty, Sinatra will set it to whatever the environment variable `APP_ENV` is (or default to `development`).
+
+```sh
+# Will connect to the test database
+APP_ENV=test bundle exec rspec
+
+# Will connect to the development database
+bundle exec rackup
+```
+
+You can add specify a configuration file in `config/database.yml`.
+
+```yaml
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
+
+development:
+  adapter: sqlite3
+  database: db/test.sqlite3
+  pool: 5
+  timeout: 5000
+```
+
+If your file lives somewhere else, change the `database_file` setting in your app:
+
+```ruby
+# app.rb
+
+set :database_file, '/deploy/config/deploy_database.yml'
+```
+
+#### Connection preference
+
+TODO this needs to be specced so badly.
 
 ### Add database tasks to Rake
 
@@ -73,6 +138,9 @@ bundle exec rake db:create_migration[create_users]
 # Fix for zsh no matches found error: db:create_migration[create_users]
 bundle exec rake db:create_migration\[create_users\]
 ```
+
+### Test integration
+
 
 ## Setup
 
