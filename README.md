@@ -1,19 +1,3 @@
-TODO
-
-* use sintra root dir for activerecord paths
-* use sinatra env for activerecord env
-* Fix database configuration options
-* Fix README
-
-* Specs
-* Add spec that verifies APP_ENV works
-* Add spec that verified RACK_ENV fallback works
-* Add spec that defines database configuration behavior, DATABASE_URL before everything else etc
-* Add specs for all supported ruby versions
-
-* Maybe
-* ActiveRecord 5 support?
-
 # sinatra-activerecord6
 
 [![CircleCI](https://circleci.com/gh/nTraum/sinatra-activerecord6.svg?style=shield)](https://app.circleci.com/pipelines/github/nTraum/sinatra-activerecord6) [![codecov](https://codecov.io/gh/nTraum/sinatra-activerecord6/branch/master/graph/badge.svg)](https://codecov.io/gh/nTraum/sinatra-activerecord6)
@@ -49,13 +33,13 @@ Run bundle install:
 bundle install
 ```
 
-## Usage
+# Usage
 
 This chapter provides a deep dive into many functionalities of the gem, if you just want to get something going quickly, see the [Quickstart](./doc/quickstart.md) instead come back here later if you want.
 
-### Configure your sinatra app
+## Configure your sinatra app
 
-#### Configure single database (simple)
+### Configure single database (simple)
 
 If you don't care about your environment, you can set the `DATABASE_URL` and start your app:
 
@@ -81,7 +65,7 @@ set :database, { adapter: 'postgresql',  database: 'blog'_development, pool: 5 }
 
 You should only use **one** way of configuring your database not not mix them.
 
-#### Configure mulitple databases (Rails way)
+### Configure mulitple databases (Rails way)
 
 See [Rails database configuration](https://guides.rubyonrails.org/configuring.html#configuring-a-database) for a general introduction.
 
@@ -119,7 +103,7 @@ If your file lives somewhere else, change the `database_file` setting in your ap
 set :database_file, '/deploy/config/deploy_database.yml'
 ```
 
-#### Connection preference
+### Connection preference
 
 TODO this needs to be specced so badly.
 
@@ -274,10 +258,24 @@ else
 end
 ```
 
-# History
-
-This gem was originally made in 2009 by Blake Mizerany, creator of Sinatra.
-
 # License
 
 [https://github.com/nTraum/sinatra-activerecord6/blob/master/LICENSE](MIT)
+
+
+
+# TODO
+
+* use sintra root dir for activerecord paths
+* use sinatra env for activerecord env
+* Fix database configuration options
+* Fix README
+
+* Specs
+* Add spec that verifies APP_ENV works
+* Add spec that verified RACK_ENV fallback works
+* Add spec that defines database configuration behavior, DATABASE_URL before everything else etc
+* Add specs for all supported ruby versions
+
+* Maybe
+* ActiveRecord 5 support?
