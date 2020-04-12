@@ -10,8 +10,10 @@ Gem::Specification.new do |gem|
   gem.license      = 'MIT'
   gem.homepage     = 'https://github.com/ntraum/sinatra-activerecord6'
 
-  gem.description  = 'Extends Sinatra with ActiveRecord helpers.'
-  gem.summary      = gem.description
+  gem.description  = 'Extends Sinatra with ActiveRecord.'
+  gem.summary = 'Allows Sinatra web applications to use relational databases via ActiveRecord.' \
+                'Provides a Sinatra extension that connects to your database and rake tasks to interact with it,' \
+          'mimicking Rails behavior.'
 
   gem.metadata['homepage_uri']    = gem.homepage
   gem.metadata['source_code_uri'] = gem.homepage
