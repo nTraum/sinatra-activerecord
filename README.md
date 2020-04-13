@@ -160,9 +160,7 @@ bundle exec rake db:create_migration\[create_users\]
 
 # License
 
-[https://github.com/nTraum/sinatra-activerecord6/blob/master/LICENSE](MIT)
-
-
+[MIT](https://github.com/nTraum/sinatra-activerecord6/blob/master/LICENSE)
 
 # TODO
 
