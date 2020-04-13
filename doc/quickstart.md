@@ -31,7 +31,7 @@ Create an `app.rb` file:
 require 'sinatra'
 require 'sinatra/activerecord'
 
-set :database, "sqlite3:database.sqlite3"
+set :database, 'sqlite3:database.sqlite3'
 ```
 
 Create a `Rakefile`:

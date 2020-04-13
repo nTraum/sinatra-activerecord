@@ -4,13 +4,13 @@
 
 sinatra-activerecord6 allows you to use ActiveRecord in your Sinatra app.
 
-# Requirements
+## Requirements
 
 * Ruby 2.4 or newer
 * Sinatra 2 or newer
 * ActiveRecord 6 or newer
 
-# Installation
+## Installation
 
 See [Migrating from sinatra-activerecord](./doc/migrating_from_sinatra_activerecord.md) if you want to migrate from an existing app that used `sinatra-activerecord` so far.
 
@@ -33,13 +33,36 @@ Run bundle install:
 bundle install
 ```
 
-# Usage
+## Usage
 
 This chapter provides a deep dive into many functionalities of the gem, if you just want to get something going quickly, see the [Quickstart](./doc/quickstart.md) instead come back here later if you want.
 
-## Configure your sinatra app
+### Configure your sinatra app
 
-### Configure single database (simple)
+Require the gem:
+
+```ruby
+# app.rb -
+require 'sinatra'
+require 'sinatra/activerecord'
+
+set :database, 'sqlite3:database.sqlite3'
+```
+
+If you subclass from `ActiveRecord::Base` you have to the additionally register the extension:
+
+```ruby
+# app.rb -
+require 'sinatra'
+require 'sinatra/activerecord'
+
+class App < Sinatra::Base
+  register Sinatra::ActiveRecord
+  set :database, 'sqlite3:database.sqlite3'
+end
+```
+
+#### Configure single database (simple)
 
 If you don't care about your environment, you can set the `DATABASE_URL` and start your app:
 
@@ -63,9 +86,9 @@ If you prefer the configuration to happen within your app, use the `database` se
 set :database, { adapter: 'postgresql',  database: 'blog'_development, pool: 5 }
 ```
 
-You should only use **one** way of configuring your database not not mix them.
+You should only use **one** way of configuring your database and not mix them.
 
-### Configure mulitple databases (Rails way)
+#### Configure mulitple databases (Rails way)
 
 See [Rails database configuration](https://guides.rubyonrails.org/configuring.html#configuring-a-database) for a general introduction.
 
@@ -103,12 +126,24 @@ If your file lives somewhere else, change the `database_file` setting in your ap
 set :database_file, '/deploy/config/deploy_database.yml'
 ```
 
-### Connection preference
+#### Connection preference
 
 TODO this needs to be specced so badly.
 
 ### Add database tasks to Rake
 
+Edit your `Rakefile` to include the database tasks. We will also have to require our Sinatra app:
+
+```ruby
+# Rakefile
+require 'sinatra/activerecord/rake'
+
+namespace :db do
+  task :load_config do
+    require_relative 'app.rb'
+  end
+end
+```
 
 ### Create migrations
 
@@ -123,141 +158,6 @@ bundle exec rake db:create_migration[create_users]
 bundle exec rake db:create_migration\[create_users\]
 ```
 
-### Test integration
-
-
-## Setup
-
-Put it in your `Gemfile`, along with the adapter of your database. For
-simplicity, let's assume you're using SQLite:
-
-```ruby
-gem "sinatra-activerecord"
-gem "sqlite3"
-gem "rake"
-```
-
-Now require it in your Sinatra application, and establish the database
-connection:
-
-```ruby
-# app.rb
-require "sinatra/activerecord"
-
-set :database, {adapter: "sqlite3", database: "foo.sqlite3"}
-# or set :database_file, "path/to/database.yml"
-```
-
-If you have a `config/database.yml`, it will automatically be loaded, no need
-to specify it. Also, in production, the `$DATABASE_URL` environment variable
-will automatically be read as the database (if you haven't specified otherwise).
-
-Note that in **modular** Sinatra applications you will need to first register
-the extension:
-
-```ruby
-class YourApplication < Sinatra::Base
-  register Sinatra::ActiveRecord
-end
-```
-
-Now require the rake tasks and your app in your `Rakefile`:
-
-```ruby
-# Rakefile
-require "sinatra/activerecord/rake"
-
-namespace :db do
-  task :load_config do
-    require "./app"
-  end
-end
-```
-
-In the Terminal test that it works:
-
-```sh
-$ bundle exec rake -T
-rake db:create            # Create the database from DATABASE_URL or config/database.yml for the current Rails.env (use db:create:all to create all dbs in the config)
-rake db:create_migration  # Create a migration (parameters: NAME, VERSION)
-rake db:drop              # Drops the database using DATABASE_URL or the current Rails.env (use db:drop:all to drop all databases)
-rake db:fixtures:load     # Load fixtures into the current environment's database
-rake db:migrate           # Migrate the database (options: VERSION=x, VERBOSE=false)
-rake db:migrate:status    # Display status of migrations
-rake db:rollback          # Rolls the schema back to the previous version (specify steps w/ STEP=n)
-rake db:schema:dump       # Create a db/schema.rb file that can be portably used against any DB supported by AR
-rake db:schema:load       # Load a schema.rb file into the database
-rake db:seed              # Load the seed data from db/seeds.rb
-rake db:setup             # Create the database, load the schema, and initialize with the seed data (use db:reset to also drop the db first)
-rake db:structure:dump    # Dump the database structure to db/structure.sql
-rake db:version           # Retrieves the current schema version number
-```
-
-And that's it, you're all set :)
-
-## Usage
-
-You can create a migration:
-
-```sh
-$ bundle exec rake db:create_migration NAME=create_users
-```
-
-This will create a migration file in your migrations directory (`./db/migrate`
-by default), ready for editing.
-
-```ruby
-class CreateUsers < ActiveRecord::Migration
-  def change
-    create_table :users do |t|
-      t.string :name
-    end
-  end
-end
-```
-
-Now migrate the database:
-
-```sh
-$ bundle exec rake db:migrate
-```
-
-You can also write models:
-
-```ruby
-class User < ActiveRecord::Base
-  validates_presence_of :name
-end
-```
-
-You can put your models anywhere you want, only remember to require them if
-they're in a separate file, and that they're loaded after `require "sinatra/activerecord"`.
-
-Now everything just works:
-
-```ruby
-get '/users' do
-  @users = User.all
-  erb :index
-end
-
-get '/users/:id' do
-  @user = User.find(params[:id])
-  erb :show
-end
-```
-
-A nice thing is that the `ActiveRecord::Base` class is available to
-you through the `database` variable:
-
-```ruby
-if database.table_exists?('users')
-  # Do stuff
-else
-  raise "The table 'users' doesn't exist."
-end
-```
-
 # License
 
 [https://github.com/nTraum/sinatra-activerecord6/blob/master/LICENSE](MIT)
@@ -267,13 +167,11 @@ end
 # TODO
 
 * use sintra root dir for activerecord paths
-* use sinatra env for activerecord env
 * Fix database configuration options
-* Fix README
+* README should include simple usage and link to advanced configuration instead of the other way around
 
 * Specs
 * Add spec that verifies APP_ENV works
-* Add spec that verified RACK_ENV fallback works
 * Add spec that defines database configuration behavior, DATABASE_URL before everything else etc
 * Add specs for all supported ruby versions
 
