@@ -67,7 +67,7 @@ end
 If you don't care about your environment, you can set the `DATABASE_URL` and start your app:
 
 ```sh
-DATABASE_URL=postgresql://localhost/blog_development?pool=5 ruby app.rb
+DATABASE_URL='postgresql://localhost/blog_development?pool=5' ruby app.rb
 ```
 
 You can also specify a configuration file `config/database.yml`:
@@ -83,7 +83,7 @@ If you prefer the configuration to happen within your app, use the `database` se
 ```ruby
 # app.rb
 
-set :database, { adapter: 'postgresql',  database: 'blog'_development, pool: 5 }
+set :database, { adapter: 'postgresql',  database: 'blog_development', pool: 5 }
 ```
 
 You should only use **one** way of configuring your database and not mix them.
