@@ -8,7 +8,6 @@ end
 
 ActiveRecord::Tasks::DatabaseTasks.tap do |config|
   config.root                   = Rake.application.original_dir
-  # TODO: activerecord env needs to become sinatra app env, but how?
   config.env                    = ENV['APP_ENV'] || 'development'
   config.db_dir                 = 'db'
   config.migrations_paths       = ['db/migrate']
@@ -17,10 +16,10 @@ ActiveRecord::Tasks::DatabaseTasks.tap do |config|
   config.database_configuration = ActiveRecord::Base.configurations
 end
 
-# db:load_config can be overriden manually
+# db:load_config must be overriden manually to load the Sinatra app
 Rake::Task['db:seed'].enhance(['db:load_config'])
 Rake::Task['db:load_config'].clear
 
-# define Rails' tasks as no-op
+# define Rails' tasks as no-op, we have our own `db:load_config` task that takes care of it
 Rake::Task.define_task('db:environment')
 Rake::Task['db:test:deprecated'].clear if Rake::Task.task_defined?('db:test:deprecated')

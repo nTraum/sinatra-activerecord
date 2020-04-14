@@ -171,7 +171,3 @@ bundle exec rake db:create_migration\[create_users\]
 * Specs
 * Add spec that verifies APP_ENV works
 * Add spec that defines database configuration behavior, DATABASE_URL before everything else etc
-* Add specs for all supported ruby versions
-
-* Maybe
-* ActiveRecord 5 support?
