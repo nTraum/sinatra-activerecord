@@ -3,12 +3,14 @@ workflows:
   version: 2
   test:
     jobs:
-      - ruby-2.6.5
+      - ruby-2.4.10
       - ruby-2.5.8
+      - ruby-2.6.6
+      - ruby-2.7.1
 jobs:
-  ruby-2.6.5: &default-build
+  ruby-2.7.1: &default-build
     docker:
-      - image: circleci/ruby:2.6.5-stretch
+      - image: circleci/ruby:2.7.1-stretch
         environment:
           BUNDLE_PATH: vendor/bundle
           CODECOV_ENABLED: true
@@ -61,3 +63,11 @@ jobs:
     <<: *default-build
     docker:
       - image: circleci/ruby:2.5.8-stretch
+  ruby-2.4.10:
+    <<: *default-build
+    docker:
+      - image: circleci/ruby:2.4.10-stretch
+  ruby-2.6.6:
+    <<: *default-build
+    docker:
+      - image: circleci/ruby:2.6.6-stretch
