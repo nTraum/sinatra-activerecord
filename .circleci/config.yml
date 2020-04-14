@@ -6,7 +6,6 @@ jobs:
         environment:
           BUNDLE_PATH: vendor/bundle
           CODECOV_ENABLED: true
-          RACK_ENV: test
           APP_ENV: test
           SKIP_INTEGRATION_TESTS: true
     steps:
