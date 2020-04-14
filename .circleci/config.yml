@@ -43,7 +43,7 @@ jobs:
 
       - run:
           name: Run RSpec
-          command: bundle exec rspec --format doc --format RspecJunitFormatter --out ./spec/test_results/results.xml
+          command: bundle exec rspec --force-color --format doc --format RspecJunitFormatter --out ./spec/test_results/results.xml
 
       - store_test_results:
           path: spec/test_results
