@@ -26,12 +26,10 @@ RSpec.shared_context 'when DATABASE_URL exists' do
   let!(:database_url) { 'sqlite3://tmp/foo.sqlite3' }
 
   around(:each) do |example|
-    begin
-      ENV['DATABASE_URL'] = database_url
-      example.run
-    ensure
-      ENV.delete('DATABASE_URL')
-    end
+    ENV['DATABASE_URL'] = database_url
+    example.run
+  ensure
+    ENV.delete('DATABASE_URL')
   end
 end
 
