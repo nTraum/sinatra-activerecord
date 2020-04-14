@@ -1,8 +1,15 @@
 version: 2
+workflows:
+  version: 2
+  test:
+    jobs:
+      - ruby-2.5
+      - ruby-2.6
+      - ruby-2.7
 jobs:
-  build:
+  ruby-2.7: &default-build
     docker:
-      - image: circleci/ruby:2.6.5-stretch
+      - image: circleci/ruby:2.7
         environment:
           BUNDLE_PATH: vendor/bundle
           CODECOV_ENABLED: true
@@ -51,3 +58,11 @@ jobs:
       - run:
           name: Run Rubocop
           command: bundle exec rubocop
+  ruby-2.5:
+    <<: *default-build
+    docker:
+      - image: circleci/ruby:2.5
+  ruby-2.6:
+    <<: *default-build
+    docker:
+      - image: circleci/ruby:2.6

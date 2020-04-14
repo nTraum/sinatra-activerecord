@@ -6,7 +6,7 @@ sinatra-activerecord6 allows you to use ActiveRecord in your Sinatra app.
 
 ## Requirements
 
-* Ruby 2.4 or newer
+* Ruby 2.5 or newer
 * Sinatra 2 or newer
 * ActiveRecord 6 or newer
 
