@@ -41,6 +41,7 @@ module IsolatedAppDirHelper
   def within_env_isolated_app_dir
     Bundler.with_unbundled_env do
       with_clean_env do
+        `bundle install`
         within_isolated_app_dir(create_app_files: true) do
           yield
         end
