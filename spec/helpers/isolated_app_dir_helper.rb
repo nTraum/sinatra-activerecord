@@ -29,7 +29,6 @@ module IsolatedAppDirHelper
 
     source 'https://rubygems.org'
 
-    gem 'sinatra'
     gem 'sqlite3'
     gem 'sinatra-activerecord6', path: "#{__dir__ + '/../../'}", require: 'sinatra-activerecord'
   GEMFILE
