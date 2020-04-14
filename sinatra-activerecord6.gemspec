@@ -1,3 +1,4 @@
+# coding: utf-8
 # frozen_string_literal: true
 
 require_relative 'lib/sinatra/activerecord/version'
@@ -26,7 +27,7 @@ Gem::Specification.new do |gem|
   end
   gem.require_paths = ['lib']
 
-  gem.required_ruby_version = '>= 2.4.0'
+  gem.required_ruby_version = '>= 2.5.0'
 
   gem.add_dependency 'activerecord', '>= 6.0'
   gem.add_dependency 'activesupport', '>= 6.0'

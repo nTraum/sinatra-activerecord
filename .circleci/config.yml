@@ -3,7 +3,6 @@ workflows:
   version: 2
   test:
     jobs:
-      - ruby-2.4
       - ruby-2.5
       - ruby-2.6
       - ruby-2.7
@@ -63,10 +62,6 @@ jobs:
     <<: *default-build
     docker:
       - image: circleci/ruby:2.5
-  ruby-2.4:
-    <<: *default-build
-    docker:
-      - image: circleci/ruby:2.4
   ruby-2.6:
     <<: *default-build
     docker:
