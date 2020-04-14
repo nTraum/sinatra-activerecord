@@ -29,12 +29,9 @@ module IsolatedAppDirHelper
 
     source 'https://rubygems.org'
 
-    gem 'sinatra'
     gem 'sqlite3'
     gem 'sinatra-activerecord6', path: "#{__dir__ + '/../../'}", require: 'sinatra-activerecord'
   GEMFILE
-
-  BUNDLER_ENV_VARS = %w[RUBYOPT BUNDLE_PATH BUNDLE_BIN_PATH BUNDLE_GEMFILE].freeze
 
   APP_ENV_VARS = %w[RACK_ENV APP_ENV].freeze
 
@@ -42,9 +39,12 @@ module IsolatedAppDirHelper
   # @see #within_isolated_app_dir
   # @see #with_clean_env
   def within_env_isolated_app_dir
-    with_clean_env do
-      within_isolated_app_dir(create_app_files: true) do
-        yield
+    Bundler.with_unbundled_env do
+      with_clean_env do
+        `bundle install`
+        within_isolated_app_dir(create_app_files: true) do
+          yield
+        end
       end
     end
   end
@@ -75,7 +75,7 @@ module IsolatedAppDirHelper
 
   def unset_env_vars
     @original_env = {}
-    (BUNDLER_ENV_VARS + APP_ENV_VARS).each do |key|
+    APP_ENV_VARS.each do |key|
       @original_env[key] = ENV[key]
       ENV[key] = nil
     end

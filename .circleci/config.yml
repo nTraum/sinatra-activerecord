@@ -6,9 +6,6 @@ jobs:
         environment:
           BUNDLE_PATH: vendor/bundle
           CODECOV_ENABLED: true
-          RACK_ENV: test
-          APP_ENV: test
-          SKIP_INTEGRATION_TESTS: true
     steps:
       - checkout
 
@@ -46,7 +43,11 @@ jobs:
 
       - run:
           name: Run RSpec
-          command: bundle exec rspec
+          command: bundle exec rspec --force-color --format doc --format RspecJunitFormatter --out ./spec/test_results/results.xml
+
+      - store_test_results:
+          path: spec/test_results
+
       - run:
           name: Run Rubocop
           command: bundle exec rubocop

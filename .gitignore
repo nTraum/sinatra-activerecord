@@ -4,6 +4,7 @@
 /example
 /pkg/
 /spec/examples.txt
+/spec/test_results
 /tmp/
 /vendor
 /yardoc/
