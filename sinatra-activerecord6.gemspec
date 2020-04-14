@@ -26,7 +26,7 @@ Gem::Specification.new do |gem|
   end
   gem.require_paths = ['lib']
 
-  gem.required_ruby_version = '>= 2.5.0'
+  gem.required_ruby_version = Gem::Requirement.new('>= 2.5.0')
 
   gem.add_dependency 'activerecord', '>= 6.0'
   gem.add_dependency 'activesupport', '>= 6.0'

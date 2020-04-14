@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'sinatra/activerecord/tasks/migration_creator.rb'
+require_relative 'tasks/migration_creator.rb'
 
 namespace :db do
   desc 'Create a migration (parameters: NAME, VERSION)'
